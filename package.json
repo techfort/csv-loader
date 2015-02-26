@@ -1,0 +1,23 @@
+{
+  "name": "csv-loader",
+  "version": "0.0.1",
+  "description": "csv loader for js",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:techfort/csv-loader.git"
+  },
+  "keywords": [
+    "csv",
+    "javascript"
+  ],
+  "author": "joe minichino <joe.minichino@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/techfort/csv-loader/issues"
+  },
+  "homepage": "https://github.com/techfort/csv-loader"
+}
