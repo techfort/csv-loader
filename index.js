@@ -14,7 +14,7 @@ module.exports = (function () {
   function loadWithHeaders(headers) {
     return function (data) {
       return objectLoader(headers, data);
-    }
+    };
   }
 
   return {
@@ -30,7 +30,10 @@ module.exports = (function () {
           csv = {},
           localLoader;
 
-        if (opts.withHeaders) {
+        opts.withHeaders = opts.withHeaders || true;
+        opts.intoObjects = opts.intoObjects || true;
+
+        if (opts.withHeaders === true) {
           csv.headers = rows[0].split(',');
           // skip headers row in parsing
           i = 1;

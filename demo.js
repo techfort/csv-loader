@@ -40,52 +40,56 @@ loader.loadCsv(filename, {
     records.insert(parseValues(el));
   });
 
+  function sortBy(property) {
+    return function (a, b) {
+      return a[property] < b[property] ? -1 : (a[property] === b[property] ? 0 : 1);
+    };
+  }
 
-  var sortFun = function (a, b) {
-    return a.value < b.value;
-  };
+  function sep() {
+    console.log('-------------------------------\n');
+  }
+
+  var sortByValue = sortBy('value');
+
   var maxima = years.map(function (obj) {
     return records.maxRecord(obj);
-  }).sort(sortFun);
+  }).sort(sortByValue);
+  console.log('Maxima:\n', maxima);
+  sep();
 
-  var alltimeMax = records.get(maxima[0].index);
-  console.log(alltimeMax);
+  var alltimeMax = records.get(maxima[maxima.length - 1].index);
+  console.log('All time maximum: ', alltimeMax);
+
   var yearsData = years.map(function (o) {
     return alltimeMax[o];
   }).sort();
-  console.log(yearsData[yearsData.length - 1]);
+  console.log('Max extension 2003-2014: ', yearsData[yearsData.length - 1]);
 
   var minima = years.map(function (obj) {
     return records.minRecord(obj);
-  }).sort(sortFun);
+  }).sort(sortByValue);
 
   console.log('All minimum value:\n', minima);
-  var alltimeMin = records.get(minima[minima.length - 1].index);
+  var alltimeMin = records.get(minima[0].index);
   var minYearsData = years.map(function (o) {
     return alltimeMin[o];
   }).sort();
   console.log(alltimeMin);
   console.log(minYearsData[0]);
-  console.log(records.extractNumerical('2003').filter(function (n) {
-    return !(n === -9999 || isNaN(n));
-  }));
+
   console.log(years.map(function (year) {
     return {
       year: year,
       stdDev: records.stdDev(year)
     };
-  }).sort(function (a, b) {
-    return a.stdDev < b.stdDev;
-  }));
+  }).sort(sortBy('stdDev')));
 
   console.log(years.map(function (year) {
     return {
       year: year,
       average: records.avg(year)
     }
-  }).sort(function (a, b) {
-    return a.average < b.average;
-  }));
-
+  }).sort(sortBy('average')));
 
 });
